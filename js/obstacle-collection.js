@@ -24,7 +24,12 @@ ObstacleCollection.prototype.move = function() {
   });
 };
 
-ObstacleCollection.prototype.isCollisions = function(drawable) {
+ObstacleCollection.prototype.isCollisions = function(mario) {
+  return this.obstacles.some(function(obstacle){
+    var cx = obstacle.x < mario.x + mario.w && obstacle.x + obstacle.w > mario.x; 
+    var cy = obstacle.y < mario.y + mario.h;
+    return cx && cy;
+  });
 };
 
 ObstacleCollection.prototype.generateObstacle = function() {
@@ -43,4 +48,10 @@ ObstacleCollection.prototype.generateObstacle = function() {
 };
 
 ObstacleCollection.prototype.cleanObstacles = function() {
+  this.obstacles.forEach((o ,i) => {
+    if(o.x + o.w < 0){
+      this.obstacles.splice(i,1);
+      console.log(this.obstacles);
+    }
+  })
 };

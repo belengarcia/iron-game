@@ -23,10 +23,17 @@ Game.prototype.start = function() {
   }.bind(this), 16);
 };
 
-Game.prototype.drawAll = function(action) {
+Game.prototype.drawAll = function() {
+  this.bg.draw();
+  this.player.draw();
+  this.obstacleCollection.draw();
+  this.score.draw();
 };
 
-Game.prototype.moveAll = function(action) {
+Game.prototype.moveAll = function() {
+  this.bg.move();
+  this.player.move();
+  this.obstacleCollection.move();
 };
 
 Game.prototype.checkGameOver = function() {
@@ -41,9 +48,20 @@ Game.prototype.gameOver = function() {
   if (confirm("GAME OVER! Play again?")) {
     location.reload();
   }
+
+  this.score.score = 0;
 };
 
 Game.prototype.clear = function() {
+  this.ctx.clearRect(
+    0, 0, this.ctx.canvas.width, this.ctx.canvas.height
+  );
+
+  this.player.bullets.forEach((bullet ,i) => {
+    if(bullet.x > this.ctx.canvas.width){
+      this.player.bullets.splice(i,1);
+    }
+  });
 };
 
 Game.prototype.setKeyboardListeners = function() {
