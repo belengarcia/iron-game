@@ -17,6 +17,7 @@ Game.prototype.start = function() {
 
     this.drawAll();
 
+    this.checkBulletCollision();
     this.checkGameOver();
 
     this.moveAll();
@@ -41,6 +42,19 @@ Game.prototype.checkGameOver = function() {
     this.gameOver();
   }
 };
+
+Game.prototype.checkBulletCollision = function() {
+  this.player.bullets = this.player.bullets.filter(function(bullet, i) {
+    var targetObstacle = this.obstacleCollection.isBulletCollision(bullet);
+
+    if (targetObstacle) {
+      this.obstacleCollection.deleteObstacle(targetObstacle);
+      return false;
+    } else {
+      return true;
+    }
+  }.bind(this));
+}
 
 Game.prototype.gameOver = function() {
   clearInterval(this.intervalId);

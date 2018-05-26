@@ -32,6 +32,21 @@ ObstacleCollection.prototype.isCollisions = function(mario) {
   });
 };
 
+ObstacleCollection.prototype.deleteObstacle = function(obstacleToDelete) {
+  this.obstacles = this.obstacles.filter(function(o) {
+    return o !== obstacleToDelete; 
+  });
+}
+
+ObstacleCollection.prototype.isBulletCollision = function(bullet) {
+  return this.obstacles.find(function(obstacle){
+    var cx = obstacle.x < bullet.x + bullet.w && obstacle.x + obstacle.w > bullet.x; 
+    var cy = obstacle.y < bullet.y + bullet.h;
+
+    return cx && cy ? obstacle : null;
+  });
+};
+
 ObstacleCollection.prototype.generateObstacle = function() {
   var max = 100,
       min = 50;

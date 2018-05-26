@@ -93,7 +93,7 @@ Player.prototype.jump = function() {
 };
 
 Player.prototype.shoot = function() {
-  this.bullets.push(new Bullet(this.ctx, this.x, this.y))
+  this.bullets.push(new Bullet(this.ctx, this.x + this.w, this.y + this.h / 4))
 };
 
 Player.prototype.startBend   = function() {

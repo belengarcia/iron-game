@@ -8,7 +8,8 @@ function Obstacle(ctx) {
   this.y = this.ctx.canvas.height * 0.8;
 
   this.img = new Image();
-  this.img.src = './img/obstacle_0.png';
+  var random = Math.floor(Math.random() * 2);
+  this.img.src = './img/obstacle_' + random + '.png';
 
   this.vx = -5;
 }
